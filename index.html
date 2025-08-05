@@ -3,15 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday</title>
+  <title>Liebe Überraschung</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html {
-      width: 100%;
-      height: 100%;
-      background: #000;
-      overflow: hidden;
+      margin: 0; padding: 0; height: 100%;
       font-family: sans-serif;
+      background: #000;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #content {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .btn {
+      background: #ff4081;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: white;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #e60073;
+    }
+
+    .section {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    #hearts {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .heart {
@@ -21,6 +69,7 @@
       font-size: 14px;
       animation: fall linear;
       user-select: none;
+      z-index: 0;
     }
 
     @keyframes fall {
@@ -37,6 +86,7 @@
       text-align: center;
       opacity: 0;
       transition: opacity 0.5s;
+      z-index: 1;
     }
 
     .message.show {
@@ -51,6 +101,7 @@
       font-size: 6em;
       color: red;
       display: none;
+      z-index: 1;
     }
 
     .final-heart {
@@ -61,6 +112,7 @@
       font-size: 20em;
       color: red;
       display: none;
+      z-index: 1;
     }
 
     #restartBtn {
@@ -74,93 +126,202 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      z-index: 2;
+      color: black;
+    }
+
+    #backBtn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #ff4081;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      display: none;
       z-index: 10;
+    }
+
+    #section3 img {
+      max-width: 80vw;
+      max-height: 80vh;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #ff4081;
     }
   </style>
 </head>
 <body>
 
-  <!-- القلوب المتساقطة -->
-  <div id="hearts"></div>
+  <!-- الصفحة الرئيسية -->
+  <div id="home" class="section active">
+    <button class="btn" onclick="showSection('section1')">Herz & Nachrichten</button>
+    <button class="btn" onclick="showSection('section2')">Liebesbotschaft</button>
+    <button class="btn" onclick="showSection('section3')">Bild</button>
+    <button class="btn" onclick="askPassword()">🔒 Geheime Nachricht</button>
+  </div>
 
-  <!-- الرسائل -->
-  <div id="msg1" class="message">Warten Sie!! 🥺</div>
-  <div id="msg2" class="message">Noof, du bist wirklich wunderschön 🫢</div>
-  <div id="msg3" class="message">Weißt du, warum heute der schönste Tag im Jahr ist?</div>
-  <div id="msg4" class="message">Weil du Geburtstag hast!</div>
-  <div id="msg5" class="message">Dein Geburtstag ist mein Lieblingsfeiertag ❤</div>
-  <div id="msg6" class="message">Letztes Wort für das schönste Mädchen: In einer Welt voller Mädchen bist du die Schönste.</div>
+  <!-- القسم الأول -->
+  <div id="section1" class="section">
+    <div id="hearts"></div>
+    <div id="msg1" class="message">Warten Sie!! 🥺</div>
+    <div id="msg2" class="message">Noof, du bist wirklich wunderschön 🫢</div>
+    <div id="msg3" class="message">Weißt du, warum heute der schönste Tag im Jahr ist?</div>
+    <div id="msg4" class="message">Weil du Geburtstag hast!</div>
+    <div id="msg5" class="message">Dein Geburtstag ist mein Lieblingsfeiertag ❤</div>
+    <div id="msg6" class="message">In einer Welt voller Mädchen bist du die Schönste.</div>
+    <div id="bigHeart" class="big-heart">❤</div>
+    <div id="finalHeart" class="final-heart">❤</div>
+    <button id="restartBtn">🔁 Neu starten</button>
+  </div>
 
-  <!-- القلب الكبير قبل الرسالة الأخيرة -->
-  <div id="bigHeart" class="big-heart">❤</div>
+  <!-- القسم الثاني -->
+  <div id="section2" class="section">
+    <h1>Liebesbotschaft</h1>
+    <p style="font-size:1.5em; margin-top: 30px;">
+      Noof, du bist mein Ein und Alles.<br>
+      Ohne dich ist alles leer.<br>
+      Ich liebe dich von ganzem Herzen! ❤
+    </p>
+  </div>
 
-  <!-- القلب النهائي بعد الرسالة الأخيرة -->
-  <div id="finalHeart" class="final-heart">❤</div>
+  <!-- القسم الثالث -->
+  <div id="section3" class="section">
+    <h1>Für dich</h1>
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Liebesbild" />
+  </div>
 
-  <!-- زر إعادة التشغيل -->
-  <button id="restartBtn">🔁 إعادة تشغيل</button>
+  <!-- القسم الرابع: الرسالة السرية -->
+  <div id="secretMessage" class="section">
+    <h1>Geheime Liebesbotschaft</h1>
+    <p style="font-size:1.5em; margin-top: 30px;">
+      Noof, nur du kannst diese Nachricht sehen.<br>
+      Dein Lächeln erhellt meine Welt.<br>
+      Du bist nicht nur meine Liebe, sondern mein Leben. ❤<br>
+      Für immer dein.
+    </p>
+  </div>
 
-  <script>
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = "❤";
-      heart.style.fontSize = (Math.random() * 10 + 10) + "px";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
-      document.getElementById("hearts").appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
+  <!-- زر الرجوع -->
+  <button id="backBtn" onclick="goHome()">← Zurück</button>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+
+    document.getElementById('backBtn').style.display = (id === 'home') ? 'none' : 'block';
+
+    if(id === 'section1') {
+      startSequence();
+      startHearts();
+    } else {
+      stopHearts();
+      clearMessages();
     }
+  }
 
-    setInterval(createHeart, 50);
+  function goHome() {
+    showSection('home');
+  }
 
-    const messages = [
-      document.getElementById("msg1"),
-      document.getElementById("msg2"),
-      document.getElementById("msg3"),
-      document.getElementById("msg4"),
-      document.getElementById("msg5"),
-      document.getElementById("msg6")
-    ];
+  let heartsInterval;
+  let timeouts = [];
 
-    const bigHeart = document.getElementById("bigHeart");
-    const finalHeart = document.getElementById("finalHeart");
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "❤";
+    heart.style.fontSize = (Math.random() * 10 + 10) + "px";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    document.getElementById("hearts").appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+  }
 
-    function showMessage(element, duration) {
-      messages.forEach(msg => msg.classList.remove("show"));
-      element.classList.add("show");
-      setTimeout(() => {
-        element.classList.remove("show");
-      }, duration);
+  function startHearts() {
+    if(!heartsInterval) {
+      heartsInterval = setInterval(createHeart, 50);
     }
+  }
 
-    function startSequence() {
-      messages.forEach(msg => msg.classList.remove("show"));
-      bigHeart.style.display = "none";
-      finalHeart.style.display = "none";
-
-      setTimeout(() => showMessage(messages[0], 5000), 500);     // msg1
-      setTimeout(() => showMessage(messages[1], 5000), 6000);    // msg2
-      setTimeout(() => showMessage(messages[2], 5000), 11500);   // msg3
-      setTimeout(() => showMessage(messages[3], 5000), 17000);   // msg4
-      setTimeout(() => showMessage(messages[4], 5000), 22500);   // msg5
-
-      // عرض القلب قبل الرسالة الأخيرة
-      setTimeout(() => bigHeart.style.display = "block", 28000);
-      setTimeout(() => bigHeart.style.display = "none", 30000);
-
-      // عرض الرسالة الأخيرة لمدة أطول
-      setTimeout(() => showMessage(messages[5], 8000), 30500);   // msg6
-
-      // بعد الرسالة الأخيرة، عرض القلب النهائي الكبير
-      setTimeout(() => {
-        finalHeart.style.display = "block";
-      }, 39000);
+  function stopHearts() {
+    clearInterval(heartsInterval);
+    heartsInterval = null;
+    const heartsContainer = document.getElementById("hearts");
+    while (heartsContainer.firstChild) {
+      heartsContainer.removeChild(heartsContainer.firstChild);
     }
+  }
 
-    window.onload = startSequence;
-    document.getElementById("restartBtn").onclick = startSequence;
-  </script>
+  const messages = [
+    document.getElementById("msg1"),
+    document.getElementById("msg2"),
+    document.getElementById("msg3"),
+    document.getElementById("msg4"),
+    document.getElementById("msg5"),
+    document.getElementById("msg6")
+  ];
+
+  const bigHeart = document.getElementById("bigHeart");
+  const finalHeart = document.getElementById("finalHeart");
+
+  function showMessage(element, duration) {
+    messages.forEach(msg => msg.classList.remove("show"));
+    element.classList.add("show");
+    const t = setTimeout(() => {
+      element.classList.remove("show");
+    }, duration);
+    timeouts.push(t);
+  }
+
+  function clearMessages() {
+    messages.forEach(msg => msg.classList.remove("show"));
+    bigHeart.style.display = "none";
+    finalHeart.style.display = "none";
+    timeouts.forEach(t => clearTimeout(t));
+    timeouts = [];
+  }
+
+  function startSequence() {
+    clearMessages();
+
+    setTimeout(() => showMessage(messages[0], 5000), 500);
+    setTimeout(() => showMessage(messages[1], 5000), 6000);
+    setTimeout(() => showMessage(messages[2], 5000), 11500);
+    setTimeout(() => showMessage(messages[3], 5000), 17000);
+    setTimeout(() => showMessage(messages[4], 5000), 22500);
+
+    setTimeout(() => bigHeart.style.display = "block", 28000);
+    setTimeout(() => bigHeart.style.display = "none", 30000);
+
+    setTimeout(() => showMessage(messages[5], 8000), 30500);
+    setTimeout(() => {
+      finalHeart.style.display = "block";
+    }, 39000);
+  }
+
+  document.getElementById("restartBtn").onclick = () => {
+    clearMessages();
+    startSequence();
+  };
+
+  // كلمة السر لفتح الرسالة السرية
+  function askPassword() {
+    const password = prompt("Bitte gib das Passwort ein:");
+    if (password === "noofeelan") {
+      showSection('secretMessage');
+    } else {
+      alert("Falsches Passwort ❌");
+    }
+  }
+
+  window.onload = () => {
+    showSection('home');
+  };
+</script>
 
 </body>
 </html>
