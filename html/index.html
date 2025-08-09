@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Liebe Überraschung</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: sans-serif;
+      background: #000;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #content {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .btn {
+      background: #ff4081;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: white;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #e60073;
+    }
+
+    .section {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    #hearts {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: fixed;
+      top: -50px;
+      color: #ff6699;
+      font-size: 14px;
+      animation: fall linear;
+      user-select: none;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2em;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 1;
+    }
+
+    .message.show {
+      opacity: 1;
+    }
+
+    .big-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 6em;
+      color: red;
+      display: none;
+      z-index: 1;
+    }
+
+    .final-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20em;
+      color: red;
+      display: none;
+      z-index: 1;
+    }
+
+    #restartBtn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 2;
+      color: black;
+    }
+
+#backBtn {
+  position: fixed;     /* ثابت بالنسبة للشاشة */
+  top: 20px;           /* 20px من الأعلى */
+  left: 20px;          /* 20px من اليسار */
+  transform: none;     /* لا حاجة لتحويل */
+  padding: 10px 20px;  /* حجم مناسب */
+  font-size: 1em;
+  background: #ff4081;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  z-index: 10;         /* فوق العناصر الأخرى */
+}
+
+    #section3 img {
+      max-width: 80vw;
+      max-height: 80vh;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #ff4081;
+      margin: 10px 0;
+    }
+
+    
+    /* زر النصيحة اليومية */
+    #newAdviceBtn {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff4081;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      z-index: 5;
+    }
+    #newAdviceBtn:hover {
+      background-color: #e60073;
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- الصفحة الرئيسية -->
+  <div id="home" class="section active">
+    <button class="btn" onclick="showSection('section1')">كل عام وانتي بالف خير ❣</button>
+    <button class="btn" onclick="showSection('section2')">كلمة من قلب الئ قلب </button>
+    <button class="btn" onclick="showSection('section3')">صورج بكل حالاتج</button>
+    <button class="btn" onclick="askPassword()">خاص جدا جدا جدا🔒</button>
+    <button class="btn" onclick="showSection('dailyLoveMsg')">نصيحه يوميه💌</button>
+
+  </div>
+
+  <!-- القسم الأول -->
+  <div id="section1" class="section">
+    <div id="hearts"></div>
+    <div id="msg1" class="message">انتظري لحظة</div>
+    <div id="msg2" class="message">نوف! شلون ممكن لانسان يكون بهاذا الجمال كله</div>
+    <div id="msg3" class="message">تعرفين ليش اليوم أحلى يوم بايام السنة كلها؟</div>
+    <div id="msg4" class="message">لأن بنفس هذا اليوم انولد قمر للأرض</div>
+    <div id="msg5" class="message">بنفس هذا اليوم العالم حصل إنسان فريد من نوعه</div>
+    <div id="msg6" class="message">أتمنى لك سنة كلها فرح بعيد عن أي حزن</div>
+    <div id="bigHeart" class="big-heart">❤</div>
+    <div id="finalHeart" class="final-heart">❤</div>
+    <button id="restartBtn">🔁 إعادة التشغيل</button>
+    <button id="backBtn" onclick="backHome()">🏠 العودة للرئيسية</button>
+
+
+  </div>
+
+  <!-- القسم الثاني -->
+  <div id="section2" class="section">
+    <h1>رسالة حب</h1>
+    <p style="font-size:1.5em; margin-top: 30px;">
+      gggggggggggggggggggg<br>
+      بدونك كل شيء فارغ.<br>
+      أحبك من كل قلبي! ❤
+    </p>
+    <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
+  </div>
+
+  <!-- القسم الثالث -->
+  <div id="section3" class="section">
+    <h1>هذه أنت</h1>
+
+    <img src="1.jpg" alt="صورة 1">
+    <img src="2.jpg" alt="صورة 2">
+    <img src="3.jpg" alt="صورة 3">
+    <img src="4.jpg" alt="صورة 4">
+    <img src="5.jpg" alt="صورة 5">
+    <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
+  </div>
+
+
+<!-- القسم النصيحة اليومية -->
+<div id="dailyLoveMsg" class="section">
+  <h1>نصيحة يومية</h1>
+  <p id="dailyMessage" style="font-size:1.8em; margin-top: 20px; min-height: 120px;">
+    <!-- هنا تظهر النصيحة -->
+  </p>
+  <button id="newAdviceBtn">نصيحة جديدة</button>
+  <br/>
+  <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
+</div>
+
+  </div>
+
+
+
+
+
+
+  <!-- القسم الرابع: الرسالة السرية -->
+  <div id="secretMessage" class="section">
+    <h1>أهلاً وسهلاً…</h1>
+    <p style="font-size:1.5em; margin-top: 30px;">
+      بما إنك هنا، وكتبت اسمي، فـ يمكن هذا مو مجرد صدفة.<br>
+      يمكن تشوف الكلام غريب شوي، بس هو كلام جان بقلبي من زمان… وهسه صار وقته.<br><br>
+
+      ما كنت أتوقع يجي يوم أتعرف بيه على شخص يقدر يغيّر مزاجي كله، بكلمة…<br>
+      من أول كلمة، من أول نظرة، من أول ضحكة… حسّيت بشي مختلف.<br>
+      حسّيت إنّي شفت عظمة الله بخلقه من خلال ضحكتك.<br><br>
+
+      يمكن ما أعرف أشرح شنو أحسّه بالضبط،<br>
+      بس بيك شي يخليني أرتاح.<br>
+      حتى بأوقات السكوت، وجودك كافي.<br>
+      حتى لما الدنيا تضيق، يكفيني أسمع صوتك وأحس إنو كل شيء يهون.<br><br>
+
+      بعض الناس وجودهم "صدفة حلوة"،<br>
+      وبعضهم "نعمة".<br>
+      وإنت؟<br><br>
+
+      إنت الشي الوحيد اللي أحسّه "قدر حلو" اختاره الله لقلبي.<br>
+      من أول لحظة شفتك بيها، حسّيت إن الدنيا ممكن تصير أحلى<br>
+      كل تفاصيلك حلوة<br><br>
+
+      ضحكتك، كلامك، وحتى سكوتك، كل شيء فيك يريح القلب.<br>
+      أنا ما أحتاج سبب حتى أحبك،<br>
+      بس كل مرة أكعد وأفكر، ألاقي آلاف الأسباب.<br><br>
+
+      وجودك وياي يخليني قوي،<br>
+      ويخليني أؤمن إن الحياة، مهما كانت صعبة، فيها شيء يستاهل.<br><br>
+
+      شكراً لأنك إنت<br>
+      وشكراً لأنك هنا.<br><br>
+
+      اليوم وباجر وكل يوم بعده أنت بقلبي ❤<br><br>
+
+      بل أخير حاب أكلك أنت الضوء اللي بنهاية النفق.<br>
+      اللي يشوفه يعرف إنه هو نجا بعد تعب.
+    </p>
+
+<button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
+
+  </div>
+
+
+
+
+
+<script>
+
+
+
+
+
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+
+    document.getElementById('backBtn').style.display = (id === 'home') ? 'none' : 'block';
+
+    if(id === 'section1') {
+      startSequence();
+      startHearts();
+    } else {
+      stopHearts();
+      clearMessages();
+    }
+
+    if(id === 'dailyLoveMsg') {
+      showDailyMessage();
+    }
+  }
+
+  function goHome() {
+    showSection('home');
+  }
+
+  let heartsInterval;
+  let timeouts = [];
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "❤";
+    heart.style.fontSize = (Math.random() * 10 + 10) + "px";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    document.getElementById("hearts").appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+  }
+
+  function startHearts() {
+    if(!heartsInterval) {
+      heartsInterval = setInterval(createHeart, 50);
+    }
+  }
+
+  function stopHearts() {
+    clearInterval(heartsInterval);
+    heartsInterval = null;
+    const heartsContainer = document.getElementById("hearts");
+    while (heartsContainer.firstChild) {
+      heartsContainer.removeChild(heartsContainer.firstChild);
+    }
+  }
+
+  const messages = [
+    document.getElementById("msg1"),
+    document.getElementById("msg2"),
+    document.getElementById("msg3"),
+    document.getElementById("msg4"),
+    document.getElementById("msg5"),
+    document.getElementById("msg6")
+  ];
+
+  const bigHeart = document.getElementById("bigHeart");
+  const finalHeart = document.getElementById("finalHeart");
+
+  function showMessage(element) {
+    messages.forEach(msg => msg.classList.remove("show"));
+    element.classList.add("show");
+  }
+
+  function clearMessages() {
+    messages.forEach(msg => msg.classList.remove("show"));
+    bigHeart.style.display = "none";
+    finalHeart.style.display = "none";
+    timeouts.forEach(t => clearTimeout(t));
+    timeouts = [];
+  }
+
+  function startSequence() {
+    clearMessages();
+    showMessage(messages[0]);
+    timeouts.push(setTimeout(() => {
+      showMessage(messages[1]);
+      timeouts.push(setTimeout(() => {
+        showMessage(messages[2]);
+        timeouts.push(setTimeout(() => {
+          showMessage(messages[3]);
+          timeouts.push(setTimeout(() => {
+            showMessage(messages[4]);
+            timeouts.push(setTimeout(() => {
+              showMessage(messages[5]);
+              timeouts.push(setTimeout(() => {
+                messages.forEach(msg => msg.classList.remove("show"));
+                bigHeart.style.display = "block";
+                timeouts.push(setTimeout(() => {
+                  bigHeart.style.display = "none";
+                  finalHeart.style.display = "block";
+                }, 3000));
+              }, 3000));
+            }, 4000));
+          }, 4000));
+        }, 4000));
+      }, 4000));
+    }, 4000));
+  }
+
+  document.getElementById("restartBtn").addEventListener("click", () => {
+    startSequence();
+  });
+
+  function askPassword() {
+    const pass = prompt("ادخلي كلمة السر:");
+    if (pass === "eelan") {
+      showSection('secretMessage');
+    } else if(pass !== null) {
+      alert("كلمة السر خاطئة!");
+    }
+  }
+
+
+
+const dailyMessages = [
+  " لا تنتظر الفرصة المثالية، ابدأ حيث أنت الآن.",
+  " وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ",
+    "وَقَالَ رَبُّكُمُ ادْعُونِي أَسْتَجِبْ لَكُمْ",
+    "َاصْبِرْ وَمَا صَبْرُكَ إِلَّا بِاللَّهِ",
+    "ََمَا الْحَيَاةُ الدُّنْيَا إِلَّا لَعِبٌ وَلَهْوٌ ",
+    "إِنَّ اللَّهَ غَفُورٌ رَحِيمٌ ",
+    "وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ",
+    "وَاصْبِرْ وَمَا صَبْرُكَ إِلَّا بِاللَّهِ ",
+    "وَلَا تَكُونُوا كَالَّذِينَ نَسُوا اللَّهَ فَأَنْسَاهُمْ أَنْفُسَهُمْ",
+    "َإِنَّ مَعَ الْعُسْرِ يُسْرًا ",
+  " استمع أكثر مما تتكلم، فالحكمة تأتي من الفهم.",
+  "3. اجعل الابتسامة عادة يومية تُفتح بها أبواب الخير.",
+  "4. لا تحكم على الناس من مظهرهم، فقد تخفي القلوب أعمق من الظاهر.",
+  "5. قدر الوقت فهو أغلى ما تملك، لا تضيعه فيما لا ينفعك.",
+  "6. كن صادقًا مع نفسك ومع الآخرين، فالصدق مفتاح الثقة.",
+  "7. تعلم أن تقول “لا” عندما تحتاج، لتحافظ على سلامتك النفسية.",
+  "8. لا تخف من الفشل، فهو خطوة نحو النجاح.",
+  "9. اعتنِ بصحتك فهي رأس مالك الحقيقي.",
+  "10. استثمر في تعلم شيء جديد كل يوم.",
+  "11. لا تقارن نفسك بالآخرين، فلكل شخص رحلته الخاصة.",
+  "12. امنح من حولك الحب دون انتظار مقابل.",
+  "13. احتفظ بالأمل حتى في أصعب الظروف.",
+  "14. تجنب الشكوى المستمرة، وابحث عن الحلول.",
+  "15. لا تؤجل عمل اليوم إلى الغد.",
+  "16. اختر أصدقائك بعناية، فهم يؤثرون على حياتك.",
+  "17. تعلم فن التسامح، فهو يحرر القلب.",
+  "18. كن ممتنًا لكل ما تملك، فالشكر يزيد النعم.",
+  "19. استمع لقلبك، فهو أصدق مرشد لك.",
+  "20. حافظ على هدوئك في المواقف الصعبة.",
+  "21. ابحث عن الجمال في الأشياء الصغيرة.",
+  "22. لا تدع الخوف يمنعك من تجربة الجديد.",
+  "23. لا تبخل بابتسامة أو كلمة طيبة.",
+  "24. اعمل بجد، ولكن لا تنسَ أن تستريح.",
+  "25. لا تتوقف عن الحلم مهما كبرت.",
+  "26. واجه المشاكل بشجاعة ولا تهرب منها.",
+  "27. كن منصفًا في حكمك على الآخرين.",
+  "28. لا تستهين بقوة الكلمة الطيبة.",
+  "29. خصص وقتًا للهدوء والتأمل يوميًا.",
+  "30. ابتعد عن الأشخاص الذين يستنزفون طاقتك.",
+  "31. استغل كل يوم كفرصة جديدة للنمو.",
+  "32. لا تجعل الماضي يتحكم في مستقبلك.",
+  "33. كن صبورًا، فالنجاح يحتاج إلى وقت.",
+  "34. ساعد الآخرين دون توقع مقابل.",
+  "35. تعلم من أخطائك ولا تكررها.",
+  "36. احتفظ بدفء قلبك رغم برودة الحياة.",
+  "37. احرص على تطوير مهاراتك باستمرار.",
+  "38. احلم بأحلام كبيرة ولا تخف من الفشل.",
+  "39. استمتع بالرحلة وليس فقط بالوصول.",
+  "40. لا تكتفي بالقليل، اسعَ دائمًا للأفضل.",
+  "41. اجعل أهدافك واضحة ومحددة.",
+  "42. لا تترك الغضب يتحكم في قراراتك.",
+  "43. مارس الامتنان يوميًا، فهو يغير نظرتك للحياة.",
+  "44. كن قائدًا في حياتك ولا تنتظر أن يقودك الآخرون.",
+  "45. تواصل مع الطبيعة لتجديد طاقتك.",
+  "46. تعلم أن تعيش اللحظة وتقدرها.",
+  "47. لا تسمح للفشل أن يُثني عزيمتك.",
+  "48. اجعل القراءة عادة يومية لتنمية عقلك.",
+  "49. احمِ خصوصيتك ولا تفرط في مشاركة كل شيء.",
+  "50. احرص على التواصل الجيد مع عائلتك.",
+  "51. احتفل بنجاحاتك مهما كانت صغيرة.",
+  "52. استمتع بالهدوء والسكينة بعيدًا عن الضوضاء.",
+  "53. اجعل الصدق شعارك في كل تعاملاتك.",
+  "54. تعلم كيف تقول “لا” بأدب دون أن تجرح.",
+  "55. كن مرنًا في تفكيرك ولا تكن عنيدًا.",
+  "56. لا تترك لليأس مكانًا في حياتك.",
+  "57. اعرف متى تتوقف عن طلب العذر من نفسك.",
+  "58. استثمر وقتك في الأمور التي تهمك حقًا.",
+  "59. كن ممتنًا لمن وقف بجانبك في الأوقات الصعبة.",
+  "60. عش حياتك كما تريد، لا كما يتوقعك الآخرون."
+];
+
+let tempDailyMessages = [...dailyMessages];
+
+function showDailyMessage() {
+  if (tempDailyMessages.length === 0) {
+    tempDailyMessages = [...dailyMessages]; // إعادة ملء الرسائل
+  }
+
+  const randomIndex = Math.floor(Math.random() * tempDailyMessages.length);
+  const msg = tempDailyMessages.splice(randomIndex, 1)[0];
+  document.getElementById("dailyMessage").textContent = msg;
+}
+
+document.getElementById("newAdviceBtn").addEventListener("click", showDailyMessage);
+
+
+
+  // افتح الصفحة الرئيسية في البداية
+  showSection('home');
+
+
+function backHome() {
+  showSection('home');
+}
+
+
+
+</script>
+
+</body>
+</html>
