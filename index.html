@@ -232,6 +232,32 @@
 
 
 
+
+
+
+#addMemoryBtn {
+  padding: 15px 35px;
+  font-size: 1.3em;
+  background: #ff4081;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#addMemoryBtn:hover {
+  transform: scale(1.1);
+  background: #e60073;
+}
+
+
+
+
+
+
+ 
+
   </style>
 </head>
 <body>
@@ -247,10 +273,41 @@
     <button class="btn" onclick="askPassword()">خاص جدا جدا جدا🔒</button>
     <button class="btn" onclick="showSection('dailyLoveMsg')">نصيحه يوميه💌</button>
     <button class="btn" onclick="showSection('tasbihSection')">سبح</button>
+    <button type="submit" id="addMemoryBtn">أضف الذكرى</button>
+
+
+
 
 
 
   </div>
+
+
+
+
+<div id="memory-wall" class="section">
+  <h2>🖼 لوحة الذكريات</h2>
+  <div id="memory-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;"></div>
+
+  <form id="memory-form" style="margin-top: 20px;">
+    <textarea id="memory-text" placeholder="اكتب ذكراك هنا..." required style="width: 100%; height: 100px;"></textarea><br>
+    <button type="submit">أضف الذكرى</button>
+  </form>
+
+  <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- قسم التسبيح -->
@@ -370,7 +427,7 @@
       بس كل مرة أكعد وأفكر، ألاقي آلاف الأسباب.<br><br>
 
       وجودج وياي يخليني قوي،<br>
-      ويخليني أؤمن إن الحياة، شكد ما كانت صعبة، بيها شيء يستاهل.<br><br>
+      ويخليني أؤمن إن الحياة، شكد ما كانت صعبة، بيها شيء يستاهل.<br><br> 
 
       شكراً لأنج إنتي<br>
       وشكراً لأنج هنا.<br><br>
@@ -388,6 +445,46 @@
 
 
 <script>
+
+
+
+
+const addMemoryBtn = document.getElementById("addMemoryBtn");
+const memoryWall = document.getElementById("memory-wall");
+const memoryGrid = document.getElementById("memory-grid");
+const memoryForm = document.getElementById("memory-form");
+const memoryInput = document.getElementById("memory-text");
+
+addMemoryBtn.addEventListener("click", () => {
+  showSection("memory-wall"); // انتقل للوحة الذكريات
+});
+
+memoryForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // منع إعادة تحميل الصفحة
+  const text = memoryInput.value.trim();
+  if(text !== "") {
+    const card = document.createElement("div");
+    card.innerHTML = `<p style="font-size:1.5em; color:white;">❤ ${text} ❤</p>`;
+    card.style.backgroundColor = 'pink';
+    card.style.padding = '15px';
+    card.style.borderRadius = '50%';
+    card.style.display = 'flex';
+    card.style.justifyContent = 'center';
+    card.style.alignItems = 'center';
+    card.style.height = '100px';
+    card.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+    memoryGrid.appendChild(card);
+    memoryInput.value = "";
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
+
+
+
+
+
+
+
 
 
 
