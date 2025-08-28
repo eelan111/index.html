@@ -235,24 +235,6 @@
 
 
 
-#addMemoryBtn {
-  padding: 15px 35px;
-  font-size: 1.3em;
-  background: #ff4081;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-#addMemoryBtn:hover {
-  transform: scale(1.1);
-  background: #e60073;
-}
-
-
-
 
 
 
@@ -272,8 +254,8 @@
     <button class="btn" onclick="showSection('section3')">صورج بكل حالاتج</button>
     <button class="btn" onclick="askPassword()">خاص جدا جدا جدا🔒</button>
     <button class="btn" onclick="showSection('dailyLoveMsg')">نصيحه يوميه💌</button>
-    <button class="btn" onclick="showSection('tasbihSection')">سبح</button>
-    <button type="submit" id="addMemoryBtn">أضف الذكرى</button>
+    <button class="btn" onclick="showSection('tasbihSection')">استغفار</button>
+    
 
 
 
@@ -282,20 +264,6 @@
 
   </div>
 
-
-
-
-<div id="memory-wall" class="section">
-  <h2>🖼 لوحة الذكريات</h2>
-  <div id="memory-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;"></div>
-
-  <form id="memory-form" style="margin-top: 20px;">
-    <textarea id="memory-text" placeholder="اكتب ذكراك هنا..." required style="width: 100%; height: 100px;"></textarea><br>
-    <button type="submit">أضف الذكرى</button>
-  </form>
-
-  <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
-</div>
 
 
 
@@ -313,7 +281,7 @@
 <!-- قسم التسبيح -->
 <div id="tasbihSection" class="section">
   <div id="circle"></div>
-  <button id="tasbihBtn">سبح</button>
+  <button id="tasbihBtn">استغفر الله </button>
   <div id="counter">0 / 100</div>
   <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
 </div>
@@ -384,7 +352,7 @@
 
 <!-- القسم النصيحة اليومية -->
 <div id="dailyLoveMsg" class="section">
-  <h1>نصيحة يومية</h1>
+  <h1>نصائح</h1>
   <p id="dailyMessage" style="font-size:1.8em; margin-top: 20px; min-height: 120px;">
     <!-- هنا تظهر النصيحة -->
   </p>
@@ -400,9 +368,10 @@
 
   <!-- القسم الرابع: الرسالة السرية -->
   <div id="secretMessage" class="section">
-    <h1>أهلاً وسهلاً…</h1>
+    <h1>كلام خاص </h1>
+    <h2>هلا ولله</h2>
     <p style="font-size:1.5em; margin-top: 30px;">
-      بما إنك هنا، وكتبتي اسمي، فـ يمكن هذا مو مجرد صدفة.<br>
+      بما إنو انتي هنا، وكتبتي اسمي، فـ يمكن هذا مو مجرد صدفة.<br>
       يمكن تشوفين الكلام غريب شوي، بس هو كلام جان بقلبي من زمان… وهسه صار وقته.<br><br>
 
       ما جنت أتوقع يجي يوم أتعرف بيه على شخص يقدر يغيّر مزاجي كله، بكلمة…<br>
@@ -411,11 +380,11 @@
 
       يمكن ما أعرف أشرح شنو أحسّه بالضبط،<br>
       بس بيج شي يخليني أرتاح.<br>
-      حتى بأوقات السكوت، وجودك كافي.<br>
+      حتى بأوقات السكوت، وجودج كافي.<br>
       حتى لما الدنيا تضيق، يكفيني أسمع صوتج وأحس إنو كل شيء يهون.<br><br>
 
-      بعض الناس وجودهم "صدفة حلوة"،<br>
-      وبعضهم "نعمة".<br>
+      بعض الناس وجودهم صدفة حلوة<br>
+      وبعضهم نعمة<br>
       وإنتي؟<br><br>
 
       إنت الشي الوحيد اللي أحسّه "قدر حلو" اختاره الله لقلبي.<br>
@@ -435,7 +404,7 @@
       اليوم وباجر وكل يوم بعده أنتي بقلبي ❤<br><br>
 
       بل أخير حاب أكلج أنت الضوء اللي بنهاية النفق.<br>
-      اللي يشوفه يعرف إنه هو نجئ من بعد بعد تعب.
+      اللي يشوفه يعرف إنه هو نجئ من  بعد تعب.
     </p>
 
 <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
@@ -449,35 +418,6 @@
 
 
 
-const addMemoryBtn = document.getElementById("addMemoryBtn");
-const memoryWall = document.getElementById("memory-wall");
-const memoryGrid = document.getElementById("memory-grid");
-const memoryForm = document.getElementById("memory-form");
-const memoryInput = document.getElementById("memory-text");
-
-addMemoryBtn.addEventListener("click", () => {
-  showSection("memory-wall"); // انتقل للوحة الذكريات
-});
-
-memoryForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // منع إعادة تحميل الصفحة
-  const text = memoryInput.value.trim();
-  if(text !== "") {
-    const card = document.createElement("div");
-    card.innerHTML = `<p style="font-size:1.5em; color:white;">❤ ${text} ❤</p>`;
-    card.style.backgroundColor = 'pink';
-    card.style.padding = '15px';
-    card.style.borderRadius = '50%';
-    card.style.display = 'flex';
-    card.style.justifyContent = 'center';
-    card.style.alignItems = 'center';
-    card.style.height = '100px';
-    card.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
-    memoryGrid.appendChild(card);
-    memoryInput.value = "";
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-});
 
 
 
