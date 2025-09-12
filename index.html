@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Liebe Überraschung</title>
+  <title>noof</title>
   <style>
     body, html {
       margin: 0; padding: 0; height: 100%;
@@ -235,6 +235,45 @@
 
 
 
+    #love-question {
+      margin-top: 20px;
+    }
+
+    .button-container {
+      position: relative;
+      width: 300px;
+      height: 100px;
+      margin: 20px auto;
+    }
+
+    #yes-btn, #no-btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      position: absolute;
+      cursor: pointer;
+    }
+
+    #yes-btn {
+      background-color: green;
+      left: 20%;
+      top: 30%;
+    }
+
+    #no-btn {
+      background-color: red;
+      left: 60%;
+      top: 30%;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: green;
+    }
+
 
 
 
@@ -255,7 +294,9 @@
     <button class="btn" onclick="askPassword()">خاص جدا جدا جدا🔒</button>
     <button class="btn" onclick="showSection('dailyLoveMsg')">نصيحه يوميه💌</button>
     <button class="btn" onclick="showSection('tasbihSection')">استغفار</button>
-    
+    <button class="btn" onclick="showSection('loveQuestionSection')">اضغط هنا</button>
+
+
 
 
 
@@ -265,7 +306,16 @@
   </div>
 
 
-
+<!-- قسم هل تحبني -->
+<div id="loveQuestionSection" class="section">
+  <h2>هل تحبني؟ ❤</h2>
+  <div class="button-container">
+    <button id="yes-btn">نعم</button>
+    <button id="no-btn">لا</button>
+  </div>
+  <div id="result"></div>
+  <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
+</div>
 
 
 
@@ -416,12 +466,32 @@
 <script>
 
 
+  function showLoveQuestion() {
+    document.getElementById("love-question").style.display = "block";
+  }
 
+  document.addEventListener("DOMContentLoaded", function() {
+    const noBtn = document.getElementById("no-btn");
+    const yesBtn = document.getElementById("yes-btn");
+    const container = document.querySelector(".button-container");
+    const result = document.getElementById("result");
 
+    function moveNoBtn() {
+      const maxX = container.clientWidth - noBtn.offsetWidth;
+      const maxY = container.clientHeight - noBtn.offsetHeight;
 
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
 
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    }
 
-
+    noBtn.addEventListener("mouseover", moveNoBtn);
+    yesBtn.addEventListener("click", function() {
+      result.textContent = "أنا سعيد لأنك قلت نعم ❤";
+    });
+  });
 
 
 
