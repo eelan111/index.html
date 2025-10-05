@@ -303,6 +303,27 @@ z-index: 100;
 
 
 
+
+
+
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(39, 0, 75);
+  color: black; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  z-index: 9999;
+}
+
+
+
+
  
 
   </style>
@@ -347,10 +368,9 @@ z-index: 100;
 
 
 
-
-
-
-
+ <div id="splash-screen">
+    <h1>كل عام و انتي بخير </h1>
+  </div>
 
 
 
@@ -375,7 +395,7 @@ z-index: 100;
     <div id="msg2" class="message">نوف! شلون ممكن لانسان يكون بهاذا الجمال كله</div>
     <div id="msg3" class="message">تعرفين ليش اليوم أحلى يوم بايام السنة كلها؟</div>
     <div id="msg4" class="message">لأن بنفس هذا اليوم انولد قمر للأرض</div>
-    <div id="msg5" class="message">بنفس هذا اليوم العالم حصل إنسان فريد من نوعه</div>
+    <div id="msg5" class="message">بنفس هذا اليوم العالم حصل إنسان فريد </div>
     <div id="msg6" class="message">أتمنى الج سنة كلها فرح بعيد عن أي حزن</div>
     <div id="bigHeart" class="big-heart">02/01/2008</div>
     <div id="finalHeart" class="final-heart">❤</div>
@@ -387,7 +407,7 @@ z-index: 100;
 
   <!-- القسم الثاني -->
   <div id="section2" class="section">
-    <h1>دعاء</h1>
+    <h1>دعاء🤲</h1>
     <p style="font-size:1.5em; margin-top: 30px;">
 
 
@@ -482,8 +502,7 @@ z-index: 100;
 
       اليوم وباجر وكل يوم بعده أنتي بقلبي ❤<br><br>
 
-      بل أخير حاب أكلج أنت الضوء اللي بنهاية النفق.<br>
-      اللي يشوفه يعرف إنه هو نجئ من  بعد تعب.
+
     </p>
 
 <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
@@ -493,6 +512,17 @@ z-index: 100;
 
 
 <script>
+
+
+
+
+    setTimeout(function() {
+      document.getElementById("splash-screen").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+    }, 3000);
+
+
+
 
 
   function showLoveQuestion() {
@@ -642,7 +672,7 @@ z-index: 100;
     if (pass === "eelan") {
       showSection('secretMessage');
     } else if(pass !== null) {
-      alert("(تلميح: شيء تحبينه (بل انجليزي");
+      alert("سيتم حذف هذا القسم في 30.01");
     }
   }
 
