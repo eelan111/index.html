@@ -257,13 +257,13 @@
     }
 
     #yes-btn {
-      background-color: green;
+      background-color: rgb(243, 0, 0);
       left: 20%;
       top: 30%;
     }
 
     #no-btn {
-      background-color: red;
+      background-color: rgb(0, 255, 34);
       left: 60%;
       top: 30%;
     }
@@ -274,6 +274,32 @@
       color: green;
     }
 
+
+
+
+
+
+
+
+
+
+
+#foter {
+ position: fixed;
+ bottom: 0;
+left: 0;
+width: 100%;
+background: rgba(123, 8, 180, 0.8);
+color: rgb(2, 0, 0);
+text-align: center;
+ font-size: 1.0em;
+padding: 10px 0;
+z-index: 100;
+ backdrop-filter: blur(4px);
+}
+#foter p {
+  margin: 0;
+}
 
 
 
@@ -288,8 +314,8 @@
 
   <!-- الصفحة الرئيسية -->
   <div id="home" class="section active">
-    <button class="btn" onclick="showSection('section1')">كل عام وانتي بالف خير ❣</button>
-    <button class="btn" onclick="showSection('section2')">كلمة من قلب الئ قلب </button>
+    <button class="btn" onclick="showSection('section1')">كل عام وانتي خير ❣</button>
+    <button class="btn" onclick="showSection('section2')">دعاء 👉👈 </button>
     <button class="btn" onclick="showSection('section3')">صورج بكل حالاتج</button>
     <button class="btn" onclick="askPassword()">خاص جدا جدا جدا🔒</button>
     <button class="btn" onclick="showSection('dailyLoveMsg')">نصيحه يوميه💌</button>
@@ -308,14 +334,17 @@
 
 <!-- قسم هل تحبني -->
 <div id="loveQuestionSection" class="section">
-  <h2>هل تحبني؟ ❤</h2>
+  <h2>هل انت جميله؟</h2>
   <div class="button-container">
-    <button id="yes-btn">نعم</button>
-    <button id="no-btn">لا</button>
+    <button id="yes-btn">لا</button>
+    <button id="no-btn">نعم </button>
   </div>
   <div id="result"></div>
   <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
 </div>
+
+
+
 
 
 
@@ -374,10 +403,10 @@
                                                  <br> يارب اجعل علاقتنا سببا للخير و الطمأنينه وامنحنا الصبر علئ بعضنا
                                             <br>وعلمنا كيف نكون دائما سندا لبعضنا 
                                      <br> يارب بارك لها بكل احلامها وفي كل خطوه تخطوها واجعلها دائما من اللذين يسعدون قلوب من حولهم
-                               <br>اللهم اني احببت عبدا من عبادك و انت وحدك من احببتني فيه 
-                         <br> ربي ابعد عنها كل شر ربي اني استودعتك نفسي و اياها 
+
+                                     <br> ربي ابعد عنها كل شر ربي اني استودعتك نفسي و اياها 
                     <br> ربي وفقها في حياتها وحقق ما تتمناه يالله 
-              <br> ربي اجعلني لها راحه وسند و امان  واغمر قلوبنا بلموده
+              <br> ربي اجعلني لها اخ و صديق و سند و امان  واغمر قلوبنا بلموده
          <br> اللهم اجعل علاقتنا مصدر سعاده و راحه واغمر حياتنا بمحبتك و رضاك    
   
 
@@ -489,7 +518,7 @@
 
     noBtn.addEventListener("mouseover", moveNoBtn);
     yesBtn.addEventListener("click", function() {
-      result.textContent = "أنا سعيد لأنك قلت نعم ❤";
+      result.textContent = "هذا صحيح انت لست جميله انت اجمل من الجمال";
     });
   });
 
@@ -766,6 +795,12 @@ function backHome() {
 
 
 </script>
+
+
+<foter id="foter">
+    <p>© 2025.01.02 noof | جميع الحقوق محفوظة 🔒</p>
+
+</foter>
 
 </body>
 </html>
